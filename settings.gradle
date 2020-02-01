@@ -1,0 +1,4 @@
+rootProject.name = 'skeleton'
+include 'skeleton-service'
+include 'skeleton-model'
+
