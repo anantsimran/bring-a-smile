@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="skeleton.bring-a-smile-model.main" target="1.8" />
+      <module name="skeleton.bring-a-smile-model.test" target="1.8" />
+      <module name="skeleton.main" target="1.8" />
+      <module name="skeleton.skeleton-model.main" target="1.8" />
+      <module name="skeleton.skeleton-model.test" target="1.8" />
+      <module name="skeleton.skeleton-service.main" target="1.8" />
+      <module name="skeleton.skeleton-service.test" target="1.8" />
+      <module name="skeleton.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
