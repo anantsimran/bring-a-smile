@@ -11,8 +11,8 @@ public class UserAuthenticator implements Authenticator<BasicCredentials, User> 
 
     @Override
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
-        if (credentials.getUsername().equals("user")){
-            return Optional.of(new User("user",UserType.USER));
+        if (credentials.getUsername().equals("volunteer")){
+            return Optional.of(new User("volunteer",UserType.VOLUNTEER));
         }
         if (credentials.getUsername().equals("coordinator")){
             return Optional.of(new User("coordinator",UserType.COORDINATOR));
