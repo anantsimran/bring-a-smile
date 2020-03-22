@@ -1,6 +1,7 @@
 package com.bring.a.smile.service;
 
 import com.bring.a.smile.auth.User;
+import com.bring.a.smile.dao.AuthorizationDao;
 import com.bring.a.smile.dao.VolunteerDao;
 import com.bring.a.smile.model.MessageResponse;
 import com.bring.a.smile.model.Volunteer;
@@ -10,9 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 public class VolunteerService {
 
     private VolunteerDao volunteerDao;
+    private AuthorizationDao authorizationDao;
 
-    public VolunteerService(VolunteerDao volunteerDao) {
+    public VolunteerService(VolunteerDao volunteerDao, AuthorizationDao authorizationDao) {
         this.volunteerDao = volunteerDao;
+        this.authorizationDao = authorizationDao;
     }
 
     public MessageResponse getLoginMessage(User user) {

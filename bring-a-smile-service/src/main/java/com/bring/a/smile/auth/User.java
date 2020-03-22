@@ -1,6 +1,7 @@
 package com.bring.a.smile.auth;
 
 
+import com.bring.a.smile.model.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

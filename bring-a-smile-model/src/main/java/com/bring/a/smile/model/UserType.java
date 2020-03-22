@@ -1,4 +1,4 @@
-package com.bring.a.smile.auth;
+package com.bring.a.smile.model;
 
 public enum UserType {
     COORDINATOR,

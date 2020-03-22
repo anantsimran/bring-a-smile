@@ -14,4 +14,5 @@ public class User {
     private String emailId;
     private String contactNo;
     private Address address;
+    private String passwordHash;
 }
