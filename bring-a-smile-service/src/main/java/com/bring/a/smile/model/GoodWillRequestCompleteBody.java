@@ -9,5 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 public class GoodWillRequestCompleteBody {
     private String requestId;
-    List<String> userIDs;
+    List<String> volunteerIds;
 }

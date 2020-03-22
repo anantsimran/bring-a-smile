@@ -1,4 +1,4 @@
 rootProject.name = 'bring-a-smile'
 include 'bring-a-smile-service'
 include 'bring-a-smile-model'
-
+include 'bring-a-smile-dal'

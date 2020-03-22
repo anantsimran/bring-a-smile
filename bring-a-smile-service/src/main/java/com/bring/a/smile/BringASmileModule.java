@@ -1,6 +1,7 @@
 package com.bring.a.smile;
 
 import com.bring.a.smile.config.BringASmileConfiguration;
+import com.bring.a.smile.dao.AssociationDao;
 import com.bring.a.smile.resources.CoordinatorResource;
 import com.bring.a.smile.resources.GoodwillRequestResource;
 import com.bring.a.smile.resources.TestResource;
@@ -24,6 +25,9 @@ public class BringASmileModule extends AbstractModule {
         bind(CoordinatorService.class).in(Scopes.SINGLETON);
         bind(VolunteerService.class).in(Scopes.SINGLETON);
         bind(GoodWillRequestService.class).in(Scopes.SINGLETON);
+
+
+        bind(AssociationDao.class).in(Scopes.SINGLETON);
     }
 
     @Provides

@@ -17,5 +17,5 @@ public class GoodwillRequest {
     private Address address;
     private Priority priority;
     private Integer minimumCoordinatorsRequired;
-    private boolean isOpen;
+    private boolean isRequiringVolunteers;
 }

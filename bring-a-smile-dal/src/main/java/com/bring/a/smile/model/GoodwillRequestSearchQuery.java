@@ -13,6 +13,8 @@ public class GoodwillRequestSearchQuery {
     private String volunteerId;
     private LocalDate dateGreater;
     private LocalTime timeGreater;
-    private boolean isOpen;
+    private boolean isVolunteersRequired;
     private String pincode;
+    private int start;
+    private int limit;
 }
