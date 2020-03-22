@@ -7,6 +7,8 @@
     <bytecodeTargetLevel>
       <module name="bring-a-smile.dal.main" target="1.8" />
       <module name="bring-a-smile.dal.test" target="1.8" />
+      <module name="bring-a-smile.main" target="1.8" />
+      <module name="bring-a-smile.test" target="1.8" />
       <module name="skeleton.bring-a-smile-model.main" target="1.8" />
       <module name="skeleton.bring-a-smile-model.test" target="1.8" />
       <module name="skeleton.main" target="1.8" />

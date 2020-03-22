@@ -5,6 +5,7 @@ import com.bring.a.smile.dao.AuthorizationDao;
 import com.bring.a.smile.dao.VolunteerDao;
 import com.bring.a.smile.model.MessageResponse;
 import com.bring.a.smile.model.Volunteer;
+import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -13,6 +14,7 @@ public class VolunteerService {
     private VolunteerDao volunteerDao;
     private AuthorizationDao authorizationDao;
 
+    @Inject
     public VolunteerService(VolunteerDao volunteerDao, AuthorizationDao authorizationDao) {
         this.volunteerDao = volunteerDao;
         this.authorizationDao = authorizationDao;

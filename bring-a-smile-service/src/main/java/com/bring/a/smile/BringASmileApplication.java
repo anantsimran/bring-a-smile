@@ -4,6 +4,7 @@ import com.bring.a.smile.auth.User;
 import com.bring.a.smile.auth.UserAuthenticator;
 import com.bring.a.smile.auth.UserAuthorizer;
 import com.bring.a.smile.config.BringASmileConfiguration;
+import com.bring.a.smile.dao.AuthorizationDao;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -70,7 +71,7 @@ public class BringASmileApplication extends Application<BringASmileConfiguration
 
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
-                        .setAuthenticator(new UserAuthenticator())
+                        .setAuthenticator(new UserAuthenticator(new AuthorizationDao()))
                         .setAuthorizer(new UserAuthorizer())
                         .buildAuthFilter()));
         environment.jersey().register(RolesAllowedDynamicFeature.class);

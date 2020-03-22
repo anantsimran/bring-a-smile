@@ -30,6 +30,7 @@ public class BringASmileModule extends AbstractModule {
         bind(AssociationDao.class).in(Scopes.SINGLETON);
     }
 
+
     @Provides
     public ObjectMapper getObjectMapper(BringASmileConfiguration configuration) {
         return new ObjectMapper();
