@@ -2,18 +2,18 @@ package com.bring.a.smile.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class GoodwillRequest {
-    private String requestID;
+    private String requestId;
     private String coordinatorId;
-    private LocalDate date;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private Address address;
     private Priority priority;
     private Integer minimumCoordinatorsRequired;

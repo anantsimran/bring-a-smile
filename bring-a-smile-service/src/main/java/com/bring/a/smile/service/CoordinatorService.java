@@ -2,6 +2,7 @@ package com.bring.a.smile.service;
 
 import com.bring.a.smile.dao.AuthorizationDao;
 import com.bring.a.smile.dao.CoordinatorDao;
+import com.bring.a.smile.exception.DuplicateEntryException;
 import com.bring.a.smile.model.Coordinator;
 import com.bring.a.smile.model.MessageResponse;
 import com.bring.a.smile.model.UserAuthorization;
@@ -25,7 +26,7 @@ public class CoordinatorService {
         return new MessageResponse(user + " is logged in");
     }
 
-    public String registerCoordinator(Coordinator coordinator) {
+    public String registerCoordinator(Coordinator coordinator) throws DuplicateEntryException {
         String coordinatorId=  coordinatorDao.registerCoordinator(coordinator);
         authorizationDao.register(new UserAuthorization(coordinatorId, UserType.COORDINATOR, coordinator.getPasswordHash()));
         log.info("Registered CoordinatorId: "+ coordinatorId);
