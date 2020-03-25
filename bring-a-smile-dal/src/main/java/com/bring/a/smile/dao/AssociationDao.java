@@ -14,10 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO : Create Data Client
-//TODO : Write Provider for each Dao
 //TODO : Create an ES DataTypes Enum
-//TODO : Logging
 //TODO: Read namespace names from config
 
 @Slf4j

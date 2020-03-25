@@ -39,7 +39,7 @@ public class ESDao implements IESDao {
         if (!getResponse.isExists() || getResponse.isSourceEmpty()){
             return Optional.empty();
         }
-        return Optional.of(getResponse.getSourceAsBytes().toString());
+        return Optional.of(getResponse.getSourceAsString());
     }
 
     @Override

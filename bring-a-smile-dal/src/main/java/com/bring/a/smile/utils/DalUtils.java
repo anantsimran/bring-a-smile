@@ -11,7 +11,7 @@ public class DalUtils {
     }
 
     public String getVolunteerId(Volunteer volunteer) {
-        return DigestUtils.md5(volunteer.getContactNo()).toString();
+        return DigestUtils.md5Hex(volunteer.getContactNo());
     }
 
 }

@@ -16,10 +16,6 @@ public class ESCLusterManaged implements Managed {
 
     @Inject
     public ESCLusterManaged() {
-    }
-
-    @Override
-    public void start() throws Exception {
         try {
             this.client = new PreBuiltTransportClient(
                     Settings.builder().put("client.transport.sniff", true)
@@ -28,6 +24,11 @@ public class ESCLusterManaged implements Managed {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void start() throws Exception {
+
     }
 
     public Client getClient(){

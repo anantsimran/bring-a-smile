@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 
-//TODO: Add application context path
-
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
