@@ -22,7 +22,4 @@ public class BringASmileConfiguration extends Configuration {
     @Valid
     private SwaggerBundleConfiguration swagger;
 
-
-
-
 }

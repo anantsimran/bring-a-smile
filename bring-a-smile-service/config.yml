@@ -1,4 +1,5 @@
 server:
+  applicationContextPath: /bring-a-smile
   applicationConnectors:
     - type: http
       port: 9000
