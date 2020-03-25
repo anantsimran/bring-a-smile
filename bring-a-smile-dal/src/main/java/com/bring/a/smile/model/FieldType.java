@@ -1,7 +1,7 @@
 package com.bring.a.smile.model;
 
 public enum FieldType {
-    INTEGER,
+    LONG,
     DATE,
     STRING,
 

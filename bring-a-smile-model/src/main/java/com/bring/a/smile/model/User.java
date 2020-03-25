@@ -1,7 +1,6 @@
 package com.bring.a.smile.model;
 
 
-//TODO: Add mechanism for verification
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

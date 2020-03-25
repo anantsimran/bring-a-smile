@@ -5,6 +5,11 @@ import com.bring.a.smile.auth.UserAuthenticator;
 import com.bring.a.smile.auth.UserAuthorizer;
 import com.bring.a.smile.config.BringASmileConfiguration;
 import com.bring.a.smile.dao.AuthorizationDao;
+import com.bring.a.smile.dao.ESDao;
+import com.bring.a.smile.dao.ESSearchDao;
+import com.bring.a.smile.managed.ESCLusterManaged;
+import com.bring.a.smile.utils.ESUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -22,6 +27,7 @@ import javax.servlet.FilterRegistration;
 import java.util.EnumSet;
 
 public class BringASmileApplication extends Application<BringASmileConfiguration> {
+
 
 
     public static void main(String[] args) throws Exception {
@@ -67,11 +73,17 @@ public class BringASmileApplication extends Application<BringASmileConfiguration
         // DO NOT pass a preflight request to down-stream auth filters
         // unauthenticated preflight requests should be permitted by spec
         cors.setInitParameter(CrossOriginFilter.CHAIN_PREFLIGHT_PARAM, Boolean.FALSE.toString());
-
+        ESCLusterManaged managed = new ESCLusterManaged();
+        environment.lifecycle().manage(managed);
 
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
-                        .setAuthenticator(new UserAuthenticator(new AuthorizationDao()))
+                        .setAuthenticator(new UserAuthenticator(
+                                new AuthorizationDao(
+                                        new ESDao(managed.getClient()),
+                                        new ESSearchDao(managed.getClient()),
+                                        new ESUtils(new ObjectMapper())
+                                )))
                         .setAuthorizer(new UserAuthorizer())
                         .buildAuthFilter()));
         environment.jersey().register(RolesAllowedDynamicFeature.class);

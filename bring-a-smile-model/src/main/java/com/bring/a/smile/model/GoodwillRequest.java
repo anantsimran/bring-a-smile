@@ -14,6 +14,7 @@ public class GoodwillRequest {
     private String coordinatorId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private String description;
     private Address address;
     private Priority priority;
     private Integer minimumCoordinatorsRequired;

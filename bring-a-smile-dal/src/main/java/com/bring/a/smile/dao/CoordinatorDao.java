@@ -19,6 +19,12 @@ public class CoordinatorDao {
     private IESSearchDao esSearchDao;
     private ESUtils esUtils;
 
+    public CoordinatorDao(IESDao esDao, IESSearchDao esSearchDao, ESUtils esUtils) {
+        this.esDao = esDao;
+        this.esSearchDao = esSearchDao;
+        this.esUtils = esUtils;
+    }
+
     public String registerCoordinator(Coordinator coordinator) throws DuplicateEntryException {
         String id = DigestUtils.md5(coordinator.getContactNo()).toString();
         coordinator.setId(id);

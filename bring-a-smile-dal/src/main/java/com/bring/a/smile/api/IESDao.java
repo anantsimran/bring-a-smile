@@ -5,7 +5,10 @@ import com.bring.a.smile.exception.NotFoundException;
 
 import java.util.Optional;
 
+
+
 public interface IESDao {
+
 
     String createDocument(String namespace, String id, String documentJson) throws DuplicateEntryException;
 

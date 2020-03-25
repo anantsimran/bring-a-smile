@@ -2,6 +2,8 @@ package com.bring.a.smile.resources;
 
 
 import com.bring.a.smile.auth.User;
+import com.bring.a.smile.exception.DuplicateEntryException;
+import com.bring.a.smile.exception.NotFoundException;
 import com.bring.a.smile.model.GoodWillRequestCompleteBody;
 import com.bring.a.smile.model.GoodwillRequest;
 import com.bring.a.smile.model.GoodwillRequestSearchQuery;
@@ -41,7 +43,12 @@ public class GoodwillRequestResource {
     @Path("complete/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response completeGoodwillRequest(@Auth User user, @ApiParam("goodwillRequestCompleteBody") GoodWillRequestCompleteBody goodwillRequestCompleteBody){
-        associationService.completeGoodwillRequest(goodwillRequestCompleteBody);
+        try {
+            associationService.completeGoodwillRequest(goodwillRequestCompleteBody);
+        } catch (NotFoundException e) {
+            log.error("Goodwill request not found: {}", goodwillRequestCompleteBody.getRequestId());
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         return Response.status(200).build();
     }
 
@@ -51,7 +58,12 @@ public class GoodwillRequestResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@Auth User user, @ApiParam GoodwillRequest goodwillRequest){
         goodwillRequest.setCoordinatorId(user.getId());
-        return Response.status(200).entity(goodWillRequestService.createGoodwillRequest(goodwillRequest)).build();
+        try {
+            return Response.status(200).entity(goodWillRequestService.createGoodwillRequest(goodwillRequest)).build();
+        } catch (DuplicateEntryException e) {
+            log.error("Goodwill Request  already found: {}", goodwillRequest);
+            return Response.status(Response.Status.CONFLICT).build();
+        }
     }
 
     @PermitAll

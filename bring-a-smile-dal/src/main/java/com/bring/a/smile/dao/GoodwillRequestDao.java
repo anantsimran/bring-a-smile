@@ -7,7 +7,6 @@ import com.bring.a.smile.exception.DuplicateEntryException;
 import com.bring.a.smile.model.*;
 import com.bring.a.smile.utils.ESUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -25,10 +24,16 @@ public class GoodwillRequestDao {
     private IESSearchDao esSearchDao;
     private ESUtils esUtils;
 
+    public GoodwillRequestDao(IESDao esDao, IESSearchDao esSearchDao, ESUtils esUtils) {
+        this.esDao = esDao;
+        this.esSearchDao = esSearchDao;
+        this.esUtils = esUtils;
+    }
+
     public String createGoodwillRequest(GoodwillRequest goodwillRequest) throws DuplicateEntryException {
         String id = UUID.randomUUID().toString();
         goodwillRequest.setRequestId(id);
-        String goodwillRequestDocString = null;
+        String goodwillRequestDocString;
         try {
             goodwillRequestDocString = esUtils.serialize(goodwillRequest);
         } catch (JsonProcessingException e) {
@@ -51,7 +56,7 @@ public class GoodwillRequestDao {
                                 )
                                 .build()
                 );
-        SearchResponseList searchResponseList = esSearchDao.search(namespace, searchTerms, Lists.newArrayList(),
+        SearchResponseList searchResponseList = esSearchDao.search(namespace, searchTerms, null,
                 searchQuery.getStart(), searchQuery.getLimit());
         List<GoodwillRequest> list = new ArrayList<>();
         for (String s : searchResponseList.getDocuments()) {

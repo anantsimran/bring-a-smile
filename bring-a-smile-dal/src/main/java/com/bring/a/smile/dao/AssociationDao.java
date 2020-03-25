@@ -9,18 +9,20 @@ import com.bring.a.smile.model.*;
 import com.bring.a.smile.utils.DalUtils;
 import com.bring.a.smile.utils.ESUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.List;
 
-//TODO : Take care of injection and initialisation
+//TODO : Create Data Client
+//TODO : Write Provider for each Dao
 //TODO : Create an ES DataTypes Enum
+//TODO : Logging
+//TODO: Read namespace names from config
 
 @Slf4j
 public class AssociationDao {
-    //TODO: Read from config
+
     private static String namespace = "association";
 
     private IESDao esDao;
@@ -29,10 +31,17 @@ public class AssociationDao {
     private DalUtils dalUtils;
 
 
+    public AssociationDao(IESDao esDao, IESSearchDao esSearchDao, ESUtils esUtils, DalUtils dalUtils) {
+        this.esDao = esDao;
+        this.esSearchDao = esSearchDao;
+        this.esUtils = esUtils;
+        this.dalUtils = dalUtils;
+    }
+
     public void markComplete(String volunteerId, String requestId) throws NotFoundException {
         String id = dalUtils.getAssociationId(volunteerId, requestId);
         Association association = new Association(null, null, null, true);
-        String associationDocumentString = null;
+        String associationDocumentString;
         try {
             associationDocumentString = esUtils.serialize(association);
         } catch (JsonProcessingException e) {
@@ -46,7 +55,7 @@ public class AssociationDao {
     public String createAssociation(String volunteerId, String goodwillRequestId) throws DuplicateEntryException {
         String id = dalUtils.getAssociationId(volunteerId, goodwillRequestId);
         Association association = new Association(id, goodwillRequestId, volunteerId, false);
-        String associationDocumentString = null;
+        String associationDocumentString;
         try {
             associationDocumentString = esUtils.serialize(association);
         } catch (JsonProcessingException e) {
@@ -58,7 +67,7 @@ public class AssociationDao {
     }
 
 
-    public Integer getAssociationCount(String goodwillRequestId) {
+    public Long getAssociationCount(String goodwillRequestId) {
         List<SearchTerm> searchTerms =
                 Arrays.asList(
                         SearchTerm.builder()
@@ -69,7 +78,8 @@ public class AssociationDao {
                                 )
                                 .build()
                 );
-        SearchResponseList searchResponseList = esSearchDao.search(namespace,searchTerms, Lists.newArrayList(), 0,1);
+        SearchResponseList searchResponseList = esSearchDao.search(namespace,searchTerms, null,
+                0,0);
         return searchResponseList.getCount();
     }
 }

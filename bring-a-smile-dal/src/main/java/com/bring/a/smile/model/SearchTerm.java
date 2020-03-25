@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-//TODO: List<Object> should be List<Value>.
+//TODO: List<Object> should be List<String> with a deserialiser. Use a deserialiser instead of typecasting the object
 
 @AllArgsConstructor
 @Data

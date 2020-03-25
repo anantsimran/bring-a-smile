@@ -2,7 +2,6 @@ package com.bring.a.smile.auth;
 
 import com.bring.a.smile.dao.AuthorizationDao;
 import com.bring.a.smile.model.UserAuthorization;
-import com.bring.a.smile.model.UserType;
 import com.google.inject.Inject;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
@@ -13,7 +12,6 @@ import java.util.Optional;
 public class UserAuthenticator implements Authenticator<BasicCredentials, User> {
 
     private AuthorizationDao authorizationDao;
-
 
     @Inject
     public UserAuthenticator(AuthorizationDao authorizationDao) {

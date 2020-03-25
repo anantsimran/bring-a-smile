@@ -6,11 +6,11 @@ import com.bring.a.smile.model.SortTerm;
 
 import java.util.List;
 
+//TODO: Build a ES iterator in case this scales
+
 public interface IESSearchDao {
-    //TODO : put iterator
 
-
-    SearchResponseList search(String namespace, List<SearchTerm> searchTerms, List<SortTerm> sortTerms,
+    SearchResponseList search(String namespace, List<SearchTerm> searchTerms, SortTerm sortTerm,
                               int start, int limit);
 
 }

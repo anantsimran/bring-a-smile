@@ -1,6 +1,7 @@
 package com.bring.a.smile.resources;
 
 import com.bring.a.smile.auth.User;
+import com.bring.a.smile.exception.DuplicateEntryException;
 import com.bring.a.smile.model.Volunteer;
 import com.bring.a.smile.service.AssociationService;
 import com.bring.a.smile.service.VolunteerService;
@@ -31,8 +32,9 @@ public class VolunteerResource {
     private AssociationService associationService;
 
     @Inject
-    public VolunteerResource(VolunteerService volunteerService) {
+    public VolunteerResource(VolunteerService volunteerService, AssociationService associationService) {
         this.volunteerService = volunteerService;
+        this.associationService = associationService;
     }
 
     @RolesAllowed("volunteer")
@@ -50,7 +52,12 @@ public class VolunteerResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response register(Volunteer volunteer){
         log.info("Registering Volunteer: " + volunteer);
-        return Response.status(200).entity(volunteerService.register(volunteer)).build();
+        try {
+            return Response.status(200).entity(volunteerService.register(volunteer)).build();
+        } catch (DuplicateEntryException e) {
+            log.error("Volunteer already found: {}", volunteer);
+            return Response.status(Response.Status.CONFLICT).build();
+        }
     }
 
     @RolesAllowed("Volunteer")
@@ -58,7 +65,12 @@ public class VolunteerResource {
     @Path("enroll/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response enroll(@Auth User user, @ApiParam("requestId") String goodwillRequestId){
-        associationService.enroll(user.getId(),goodwillRequestId);
+        try {
+            associationService.enroll(user.getId(),goodwillRequestId);
+        } catch (DuplicateEntryException e) {
+            log.error("Enrollment already found: {}", goodwillRequestId);
+            return Response.status(Response.Status.CONFLICT).build();
+        }
         return Response.status(200).build();
     }
 

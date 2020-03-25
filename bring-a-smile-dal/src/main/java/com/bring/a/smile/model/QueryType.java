@@ -2,7 +2,7 @@ package com.bring.a.smile.model;
 
 public enum QueryType {
     EQUALS,
-    GREATER,
+    GREATER_OR_EQUAL,
     LESSER,
     BETWEEN
 

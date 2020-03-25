@@ -22,10 +22,16 @@ public class AuthorizationDao {
     private IESSearchDao esSearchDao;
     private ESUtils esUtils;
 
+    public AuthorizationDao(IESDao esDao, IESSearchDao esSearchDao, ESUtils esUtils) {
+        this.esDao = esDao;
+        this.esSearchDao = esSearchDao;
+        this.esUtils = esUtils;
+    }
+
     public Optional<UserAuthorization> getAuthorization(String username, String password) {
         Optional<String> userAuthorizationString = esDao.getDocument(namespace, username);
         if(userAuthorizationString.isPresent()){
-            UserAuthorization userAuthorization  = null;
+            UserAuthorization userAuthorization;
             try {
                 userAuthorization = esUtils.deserialize(userAuthorizationString.get(),
                         UserAuthorization.class);
@@ -42,7 +48,7 @@ public class AuthorizationDao {
     }
 
     public void register(UserAuthorization userAuthorization) throws DuplicateEntryException {
-        String userAuthorizationDocString = null;
+        String userAuthorizationDocString;
         try {
             userAuthorizationDocString = esUtils.serialize(userAuthorization);
         } catch (JsonProcessingException e) {

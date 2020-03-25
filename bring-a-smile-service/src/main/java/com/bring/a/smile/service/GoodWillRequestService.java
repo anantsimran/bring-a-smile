@@ -2,6 +2,7 @@ package com.bring.a.smile.service;
 
 import com.bring.a.smile.dao.AssociationDao;
 import com.bring.a.smile.dao.GoodwillRequestDao;
+import com.bring.a.smile.exception.DuplicateEntryException;
 import com.bring.a.smile.model.GoodWillRequestExtended;
 import com.bring.a.smile.model.GoodwillRequest;
 import com.bring.a.smile.model.GoodwillRequestSearchQuery;
@@ -23,7 +24,7 @@ public class GoodWillRequestService {
         this.associationDao = associationDao;
     }
 
-    public String createGoodwillRequest(GoodwillRequest goodwillRequest) {
+    public String createGoodwillRequest(GoodwillRequest goodwillRequest) throws DuplicateEntryException {
         String goodWillRequestId =  goodwillRequestDao.createGoodwillRequest(goodwillRequest);
         log.info("Created goodwillRequestId: "+ goodWillRequestId);
         return goodWillRequestId;
@@ -33,7 +34,7 @@ public class GoodWillRequestService {
         List<GoodwillRequest> goodwillRequests=  goodwillRequestDao.search(searchQuery);
         List<GoodWillRequestExtended> goodWillRequestExtendedList = Lists.newArrayList();
         for(GoodwillRequest goodwillRequest : goodwillRequests){
-            Integer associationCount = associationDao.getAssociationCount(goodwillRequest.getRequestID());
+            Long associationCount = associationDao.getAssociationCount(goodwillRequest.getRequestId());
             goodWillRequestExtendedList.add(new GoodWillRequestExtended(goodwillRequest, associationCount));
         }
         return goodWillRequestExtendedList;
