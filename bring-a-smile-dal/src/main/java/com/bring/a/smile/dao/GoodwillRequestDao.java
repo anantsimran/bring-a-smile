@@ -7,6 +7,7 @@ import com.bring.a.smile.exception.DuplicateEntryException;
 import com.bring.a.smile.model.*;
 import com.bring.a.smile.utils.ESUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -46,16 +47,45 @@ public class GoodwillRequestDao {
 
 
     public List<GoodwillRequest> search(GoodwillRequestSearchQuery searchQuery) {
-        List<SearchTerm> searchTerms =
-                Arrays.asList(
-                        SearchTerm.builder()
-                                .field(new Field("coordinatorId", FieldType.STRING))
-                                .queryType(QueryType.EQUALS)
-                                .comparisonFields(
-                                        Arrays.asList(searchQuery.getCoordinatorId())
-                                )
-                                .build()
-                );
+
+        List<SearchTerm> searchTerms = Lists.newArrayList();
+        if(searchQuery.getCoordinatorId()!=null){
+            searchTerms.add(
+                    SearchTerm.builder()
+                            .field(new Field("coordinatorId", FieldType.STRING))
+                            .queryType(QueryType.EQUALS)
+                            .comparisonFields(
+                                    Arrays.asList(searchQuery.getCoordinatorId())
+                            )
+                            .build()
+
+            );
+        }
+        if(searchQuery.getDateGreater()!=null){
+            searchTerms.add(
+                    SearchTerm.builder()
+                            .field(new Field("startTime", FieldType.STRING))
+                            .queryType(QueryType.GREATER_OR_EQUAL)
+                            .comparisonFields(
+                                    Arrays.asList(searchQuery.getDateGreater())
+                            )
+                            .build()
+
+            );
+        }
+        if(searchQuery.getPincode()!=null){
+            searchTerms.add(
+                    SearchTerm.builder()
+                            .field(new Field("address.pincode", FieldType.STRING))
+                            .queryType(QueryType.EQUALS)
+                            .comparisonFields(
+                                    Arrays.asList(searchQuery.getPincode())
+                            )
+                            .build()
+
+            );
+        }
+
         SearchResponseList searchResponseList = esSearchDao.search(namespace, searchTerms, null,
                 searchQuery.getStart(), searchQuery.getLimit());
         List<GoodwillRequest> list = new ArrayList<>();

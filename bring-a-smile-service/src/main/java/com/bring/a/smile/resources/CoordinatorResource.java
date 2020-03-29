@@ -4,6 +4,7 @@ package com.bring.a.smile.resources;
 import com.bring.a.smile.auth.User;
 import com.bring.a.smile.exception.DuplicateEntryException;
 import com.bring.a.smile.model.Coordinator;
+import com.bring.a.smile.model.MessageResponse;
 import com.bring.a.smile.service.CoordinatorService;
 import com.google.inject.Inject;
 import io.dropwizard.auth.Auth;
@@ -49,7 +50,7 @@ public class CoordinatorResource {
     public Response register(Coordinator coordinator){
         log.info("Registering Coordinator: " + coordinator);
         try {
-            return Response.status(200).entity(coordinatorService.registerCoordinator(coordinator)).build();
+            return Response.status(200).entity(new MessageResponse(coordinatorService.registerCoordinator(coordinator))).build();
         } catch (DuplicateEntryException e) {
             log.error("Coordinator already found: {}", coordinator);
             return Response.status(Response.Status.CONFLICT).build();

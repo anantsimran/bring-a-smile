@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class GoodWillRequestService {
@@ -37,6 +38,11 @@ public class GoodWillRequestService {
             Long associationCount = associationDao.getAssociationCount(goodwillRequest.getRequestId());
             goodWillRequestExtendedList.add(new GoodWillRequestExtended(goodwillRequest, associationCount));
         }
+        if (searchQuery.isUrgent()){
+            return goodWillRequestExtendedList.stream().filter(g-> g.getGoodwillRequest().getMinimumVolunteersRequired()> g.getTotalVolunteers())
+                    .collect(Collectors.toList());
+        }
+
         return goodWillRequestExtendedList;
     }
 }

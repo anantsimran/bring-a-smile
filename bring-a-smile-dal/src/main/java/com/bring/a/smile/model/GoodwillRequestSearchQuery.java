@@ -4,17 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
 public class GoodwillRequestSearchQuery {
     private String coordinatorId;
-    private String volunteerId;
-    private LocalDateTime dateGreater;
-    private Boolean isVolunteersRequired;
+    private Date dateGreater;
     private String pincode;
+    private boolean urgent;
     private int start;
     private int limit;
 }

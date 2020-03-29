@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @Data
@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 public class GoodwillRequest {
     private String requestId;
     private String coordinatorId;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private Date startTime;
+    private Date endTime;
     private String description;
     private Address address;
     private Priority priority;
-    private Integer minimumCoordinatorsRequired;
-    private boolean isRequiringVolunteers;
+    private Integer minimumVolunteersRequired;
+    private boolean isOpen;
 }

@@ -52,12 +52,12 @@ public class GoodwillRequestResource {
         return Response.status(200).build();
     }
 
-    @RolesAllowed("coordinator")
+    @PermitAll
     @PUT
     @Path("create/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@Auth User user, @ApiParam GoodwillRequest goodwillRequest){
-        goodwillRequest.setCoordinatorId(user.getId());
+//        goodwillRequest.setCoordinatorId(user.getId());
         try {
             return Response.status(200).entity(goodWillRequestService.createGoodwillRequest(goodwillRequest)).build();
         } catch (DuplicateEntryException e) {

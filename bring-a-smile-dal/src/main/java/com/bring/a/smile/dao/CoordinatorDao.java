@@ -26,7 +26,7 @@ public class CoordinatorDao {
     }
 
     public String registerCoordinator(Coordinator coordinator) throws DuplicateEntryException {
-        String id = DigestUtils.md5(coordinator.getContactNo()).toString();
+        String id = DigestUtils.md5Hex(coordinator.getContactNo());
         coordinator.setId(id);
         String coordinatorDocumentString = null;
         try {
