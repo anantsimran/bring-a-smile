@@ -16,10 +16,15 @@ Database Setup:
 1. Use Elasticsearch 6.0.0 for this service. Download from https://www.elastic.co/downloads/past-releases/elasticsearch-6-0-0
 2. Configure cluster name as bring-a-smile
 3. Create the following indices in ElasticSearch.
+    
     a. auth
+    
     b. volunteer
+    
     c. coordinator
+    
     d. activity
+    
     e. association
     
 Running the service:
