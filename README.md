@@ -1,6 +1,6 @@
 Welcome to bring-a-smile, Our initiative to increase smiles in this world. 
 
-The application aims to connect Volunteers with different organisations and make process easier fot both of them. 
+The application aims to connect Volunteers with different organisations and make process easier for both of them. 
 Feel free to extend the activity models used in this project according to your requirements.
 
 What can this service do?
